@@ -122,9 +122,9 @@ function getAddress (cpfUser) {
 
     } catch(error) {
         
-        console.error("An error ocurred on user request: ", error)
+        console.error("An error ocurred: ", error)
             
     }
-    
+
 })(1)
 
