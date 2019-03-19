@@ -1,0 +1,109 @@
+const util = require('util')
+
+const handleGetUserCb = util.promisify(getUser) 
+
+function getUser (searchId, callback) {
+
+    setTimeout(() => {
+
+        switch (searchId) {
+            case 1:
+                return callback(null, {
+                    cpf: "722",
+                    name: "Pastor",
+                    lastName: "Alemao",
+                    age: 21
+                })
+            case 2:
+                return callback(null, {
+                    cpf: "231",
+                    name: "Pastor",
+                    lastName: "Belga",
+                    age: 32
+                })
+            case 3: 
+                return callback(null, {
+                    cpf: "957",
+                    name: "Chow",
+                    lastName: "Chow",
+                    age: 18
+                })
+            case 4: 
+                return callback(null, {
+                    cpf: "9127",
+                    name: "Pinsher",
+                    lastName: "American",
+                    age: 13
+                })
+            default:
+                return callback("Not found nobody with the informed Id.", null)
+        }
+
+    }, 2000)
+
+}
+
+function getAddress (cpfUser) {
+
+    return new Promise((resolve, reject) => {
+
+        setTimeout(() => {
+
+            switch (cpfUser) {
+                case "722":
+                    return resolve({
+                        street: "street 107",
+                        number: 23
+                    })
+                case "231":
+                    return resolve({
+                        street: "random 222",
+                        number: 200
+                    })
+                case "957": 
+                    return resolve({
+                        street: "californian streer 07",
+                        number: 11
+                    })
+                default:
+                    return reject("Not found address for user informed.")
+            }
+    
+        }, 2000)
+
+    })
+    
+}
+
+handleGetUserCb(1).then(user => {
+
+    getAddress(user.cpf).then(address => {
+
+        console.log(`
+            All User Infos: \n
+            Name: ${user.name} ${user.lastName}, ${user.age} \n
+            Address: ${address.street}, ${address.number}
+        `)
+
+        return "Search Address Success"
+
+    })
+    .then(success => console.log(success))
+    .catch(error => {
+
+        console.error("An error ocurred on address request: ", error)
+
+        console.log(`
+            All User Infos: \n
+            Name: ${user.name} ${user.lastName}, ${user.age} \n
+            Address: ${error}
+        `)
+
+    })
+
+}).catch(error => {
+
+    console.error("An error ocurred on user request: ", error)
+
+})
+

@@ -20,8 +20,8 @@ function getUser (searchId, callback) {
             case 3: 
                 return callback(null, {
                     cpf: "957",
-                    name: "Show",
-                    lastName: "Show",
+                    name: "Chow",
+                    lastName: "Chow",
                     age: 18
                 })
             case 4: 
